@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, TextField, Button} from '@mui/material';
+import { Container, TextField, Button } from '@mui/material';
 import { useState } from 'react';
 
 const TodoForm = (onSubmit) => {
@@ -13,25 +13,25 @@ const TodoForm = (onSubmit) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // onSubmit({
-    //   id:Math.floor(Math.random() * 1000),
-    //   Text:input
-    // });
-
-     setInput('')
-  }
+    if (input.trim() !== "") {
+      onSubmit({
+        id: Math.floor(Math.random() * 1000),
+        text: input.replace(/\s+/g, " ").trim(),
+      });
+      setInput("");
+    }
+  };
 
   return (
     <Container
-       sx={{
+      sx={{
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space=between",
         marginTop: "1.5vh",
         width: "38vw",
-       }}
+      }}
     >
       <form
         sx={{
@@ -47,8 +47,8 @@ const TodoForm = (onSubmit) => {
           type={"text"}
           size='medium'
           value={input}
-          onChange = {handleChange}
-          width = "30vw"
+          onChange={handleChange}
+          width="30vw"
           placeholder="Enter your Task"
           variant="outlined"
         />
@@ -56,9 +56,10 @@ const TodoForm = (onSubmit) => {
       <Button
         sx={{
           height: '5.5vh',
-          margin:'1vh'
+          margin: '1vh'
         }}
         variant='contained'
+        onClick={handleSubmit}
       >
         Add todo
       </Button>
